@@ -75,3 +75,11 @@ Find best words by letter-position frequency
 (-4810, 'bores')
 (-4799, 'sines')
 ```
+
+# Related work
+
+Apparently I'm not the first person to wonder what's the best first word to use: https://www.google.com/search?q=best+first+word+to+use+in+wordle
+
+Lots of people offer an answer to this question.  I think this one deserves special credit:
+https://bert.org/2021/11/24/the-best-starting-word-in-wordle/
+This person looked at the wordle source code and discovered the official list of 5-letter words used in the game.  So, his solution is even more accurate than mine (which relies on a different/standard list of 5-letter words).
