@@ -4,7 +4,11 @@ https://www.powerlanguage.co.uk/wordle/
 This analysis is based on a list of 5757 five letter English words taken from here:
 https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt
 
-So far the code includes two approaches
+# TL;DR
+
+If you just want to maximize greens in the first round, use "sores".
+
+If you want to maximize overall hits (greens and yellows) in the first round, use "arose".
 
 # Approach 1: simple histogram
 
@@ -29,11 +33,27 @@ Find best words by simple letter frequency
 
 Words that have a higher diversity of letters should probably be scored higher.
 
-# Approach 2: frequency and letter counts
+# Approach 2: simple histogram, adjusting for letter repetition
 
-This is a variation on Approach 1.  The intuition is that a word like "esses" probably shouldn't be scored so highly.  Sure, the letter 's' is a popular letter, but how many words have 3 s's??  So the adjustment here is to give full credit for the first 's', then less credit for the second 's', and so on.  The amount of credit we give for the second 's' depends on how many words have 2+ s's.
+This is a variation on Approach 1.  The intuition is that a word like "esses" probably shouldn't be scored so highly.  Sure, the letter 's' is a popular letter, but how many words have 3 s's??  So the adjustment here is to look at how many words have 1 "s", how many have 2 s's, etc.  (Side note: isn't it a fun coincidence that the word that motivates this variation is "esses"?).
 
+This approach seems to yield that greater diversity noted above.
 
+```
+Approach 2: Find best words by letter frequency, adjusting for letter repetition
+(-10995, 'arose')
+(-10851, 'arise')
+(-10851, 'raise')
+(-10774, 'aster')
+(-10774, 'rates')
+(-10774, 'stare')
+(-10774, 'tares')
+(-10774, 'tears')
+(-10746, 'earls')
+(-10746, 'laser')
+```
+
+This is probably the best approach to take to maximize the number of overall hits in the first round, greens and yellows.
 
 # Approach 3: consider letters and positions
 
