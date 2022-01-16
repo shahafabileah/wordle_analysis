@@ -29,7 +29,13 @@ Find best words by simple letter frequency
 
 Words that have a higher diversity of letters should probably be scored higher.
 
-# Approach 2: consider letters and positions
+# Approach 2: frequency and letter counts
+
+This is a variation on Approach 1.  The intuition is that a word like "esses" probably shouldn't be scored so highly.  Sure, the letter 's' is a popular letter, but how many words have 3 s's??  So the adjustment here is to give full credit for the first 's', then less credit for the second 's', and so on.  The amount of credit we give for the second 's' depends on how many words have 2+ s's.
+
+
+
+# Approach 3: consider letters and positions
 
 We look at how often a given letter appears in a given position.  In other words, how often does 'a' appear in the first position, second position, etc.  Same for 'b', 'c', and so on.
 
