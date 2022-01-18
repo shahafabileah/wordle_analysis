@@ -123,14 +123,29 @@ about 3
 would 5
 ```
 
-This will test every 5-letter word to see how many rounds it would take to reach the correct answer using the same suggested words.  After going through all the words, it prints the average.
+This will test every 5-letter word to see how many rounds it would take to reach the correct answer using the same suggested words.  In the end it prints a histogram (how many words took 1 try, 2 tries, etc) and the overall average.
 
-Current result:
+Here's how it looks:
 ```
+Results:
+1 => 1
+2 => 86
+3 => 721
+4 => 1661
+5 => 1573
+6 => 876
+7 => 426
+8 => 204
+9 => 103
+10 => 50
+11 => 31
+12 => 19
+13 => 4
+14 => 2
 Average: 5.0010422094841065
 ```
 
-However, there are plenty of words in the mix that take more than the allowed 6 guesses.  So, this is still not a satisfactory solution.
+As you can see, there are plenty of situations where it takes more than the allowed 6 tries to get the solution.
 
 # Related work
 

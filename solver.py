@@ -185,15 +185,22 @@ def play_game(target_word):
 def evaluation_mode():
   words = get_five_letter_words()
 
-  results = {}
+  results = {} # word => number of guesses
+  histogram = defaultdict(int) # number of guesses => number of words for which it took that many guesses
 
   for target_word in words:
     rounds = play_game(target_word)
     results[target_word] = rounds
+    histogram[rounds] += 1
     print(target_word, rounds)
     if rounds == 20:
       break
-  
+
+  print('Results:')
+
+  for rounds in sorted(histogram):
+    print(str(rounds) + ' => ' + str(histogram[rounds]))
+
   average = 1.0 * sum(results.values()) / len(results.values())
   print('Average: ' + str(average))
 
