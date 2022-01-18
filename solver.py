@@ -110,7 +110,7 @@ def filter_words(old_remaining_words, attempted_word, colors):
 
 def interactive_mode():
   print("This is an interactive solver for wordle.")
-  print("In each turn, it gives you which word to try.")
+  print("In each turn, it suggests a word to try.")
   print("It then asks you to indicate how it went.")
   print("Use the letters: B = black, Y = yellow, G = green.")
   print("For example if you tried AROSE and got black-yellow-black-yellow-green, type BYBYG")
