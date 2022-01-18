@@ -88,7 +88,7 @@ Find best words by letter-position frequency
 
 Sample usage:
 ```
-% python3 solver.py
+% python3 solver.py                                   
 This is an interactive solver for wordle.
 In each turn, it suggests a word to try.
 It then asks you to indicate how it went.
@@ -98,15 +98,12 @@ For example if you tried AROSE and got black-yellow-black-yellow-green, type BYB
 Number of remaining words: 5757
 Try this word: arose
 How did it go? BYBYG
-shire: True
 Number of remaining words: 19
 Try this word: reuse
 How did it go? YBBYG
-shire: True
 Number of remaining words: 4
 Try this word: prise
 How did it go? BYGYG
-shire: True
 Number of remaining words: 1
 Try this word: shire
 How did it go? GGGGG

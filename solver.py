@@ -101,9 +101,6 @@ def word_matches(word, attempted_word, colors):
 def filter_words(old_remaining_words, attempted_word, colors):
   new_remaining_words = []
   for word in old_remaining_words:
-    if word == 'shire':
-      print("shire: " + str(word_matches(word, attempted_word, colors)))
-
     if word_matches(word, attempted_word, colors):
       new_remaining_words.append(word)
   return new_remaining_words
