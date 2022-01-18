@@ -1,16 +1,24 @@
-This is an exercise to think through what is the best starter word in the game Wordle:
+This project has code to help solve the game Wordle:
 https://www.powerlanguage.co.uk/wordle/
 
-This analysis is based on a list of 5757 five letter English words taken from here:
+There are two files:
+1. first_word.py - tells you the best first word to try.
+2. solver.py - guides you through a full game, telling you which word to use at every turn.
+
+For this analysis, I'm using a list of 5757 five letter English words taken from here:
 https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt
 
-# TL;DR
+# First Word
+
+Usage: `python3 first_word.py`
+
+## TL;DR
 
 If you just want to maximize greens in the first round, use "sores".
 
 If you want to maximize overall hits (greens and yellows) in the first round, use "arose".
 
-# Approach 1: simple histogram
+## Approach 1: simple histogram
 
 We look at how often each letter (a, b, c...) appears across all 5-letter English words.  Then we assign a score to each word by adding up the frequency of each of its letters.  This is akin to "area under the curve".
 
@@ -76,6 +84,38 @@ Find best words by letter-position frequency
 (-4799, 'sines')
 ```
 
+# Solver
+
+Sample usage:
+```
+% python3 solver.py
+This is an interactive solver for wordle.
+In each turn, it gives you which word to try.
+It then asks you to indicate how it went.
+Use the letters: B = black, Y = yellow, G = green.
+For example if you tried AROSE and got black-yellow-black-yellow-green, type BYBYG
+
+Number of remaining words: 5757
+Try this word: arose
+How did it go? BYBYG
+shire: True
+Number of remaining words: 19
+Try this word: reuse
+How did it go? YBBYG
+shire: True
+Number of remaining words: 4
+Try this word: prise
+How did it go? BYGYG
+shire: True
+Number of remaining words: 1
+Try this word: shire
+How did it go? GGGGG
+```
+
+The solver begins with the full list of candidate words.  After each turn, it reduces the list of candidate words by eliminating ones that definitely don't work.  It then suggests the most likely word from the remaining set (using "Approach 2" from above).
+
+This approach works, but it's rather "greedy".  It would be better to test _unique_ letters in subsequent rounds in order to maximize information gain and reduce the remaining search space.
+
 # Related work
 
 Apparently I'm not the first person to wonder what's the best first word to use: https://www.google.com/search?q=best+first+word+to+use+in+wordle
@@ -83,3 +123,7 @@ Apparently I'm not the first person to wonder what's the best first word to use:
 Lots of people offer an answer to this question.  I think this one deserves special credit:
 https://bert.org/2021/11/24/the-best-starting-word-in-wordle/
 This person looked at the wordle source code and discovered the official list of 5-letter words used in the game.  So, his solution is even more accurate than mine (which relies on a different/standard list of 5-letter words).
+
+Also, some people have created helper tools or complete solvers.  Here are a couple:
+* https://notfunatparties.com/wordle-solver
+* https://www.thewordfinder.com/wordle-solver/
