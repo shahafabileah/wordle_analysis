@@ -90,7 +90,7 @@ Sample usage:
 ```
 % python3 solver.py
 This is an interactive solver for wordle.
-In each turn, it gives you which word to try.
+In each turn, it suggests a word to try.
 It then asks you to indicate how it went.
 Use the letters: B = black, Y = yellow, G = green.
 For example if you tried AROSE and got black-yellow-black-yellow-green, type BYBYG
