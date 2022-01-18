@@ -113,6 +113,25 @@ The solver begins with the full list of candidate words.  After each turn, it re
 
 This approach works, but it's rather "greedy".  It would be better to test _unique_ letters in subsequent rounds in order to maximize information gain and reduce the remaining search space.
 
+You can also run the script in _evaluation_ mode:
+```
+% python3 solver.py -e
+which 5
+there 4
+their 8
+about 3
+would 5
+```
+
+This will test every 5-letter word to see how many rounds it would take to reach the correct answer using the same suggested words.  After going through all the words, it prints the average.
+
+Current result:
+```
+Average: 5.0010422094841065
+```
+
+However, there are plenty of words in the mix that take more than the allowed 6 guesses.  So, this is still not a satisfactory solution.
+
 # Related work
 
 Apparently I'm not the first person to wonder what's the best first word to use: https://www.google.com/search?q=best+first+word+to+use+in+wordle

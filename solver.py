@@ -1,3 +1,4 @@
+import sys
 from collections import defaultdict
 from queue import PriorityQueue
 
@@ -101,7 +102,7 @@ def word_matches(word, attempted_word, colors):
 def filter_words(old_remaining_words, attempted_word, colors):
   new_remaining_words = []
   for word in old_remaining_words:
-    if word_matches(word, attempted_word, colors):
+    if word != attempted_word and word_matches(word, attempted_word, colors):
       new_remaining_words.append(word)
   return new_remaining_words
 
@@ -117,17 +118,90 @@ def interactive_mode():
 
   while len(remaining_words) > 0:
     print("Number of remaining words: " + str(len(remaining_words)))
-    next_word_to_try = pick_next_word_to_try(remaining_words)
-    print("Try this word: " + next_word_to_try)
+    candidate_word = pick_next_word_to_try(remaining_words)
+    print("Try this word: " + candidate_word)
     colors = input("How did it go? ")
 
     if colors == "GGGGG":
       break
 
-    remaining_words = filter_words(remaining_words, next_word_to_try, colors)
+    remaining_words = filter_words(remaining_words, candidate_word, colors)
+
+def color_word(candidate_word, target_word):
+  colors = [' ', ' ', ' ', ' ', ' ']
+  target = list(target_word)
+
+  # print(target)
+  # print('Green...')
+
+  # Green
+  for i in range(0, 5):
+    if candidate_word[i] == target_word[i]:
+      colors[i] = 'G'
+      target[i] = '0' # zero it out to indicate it's been "used"
+
+  # print(colors)
+  # print(target)
+
+  # print('Yellow...')
+
+  # Yellow / Black
+  for i in range(0, 5):
+    # print(i)
+    if colors[i] == 'G':
+      # print('continuing')
+      continue
+    letter = candidate_word[i]
+    position = target.index(letter) if letter in target else -1
+    if position >= 0:
+      colors[i] = 'Y'
+      target[position] = '0' # zero it out to indicate it's been "used"
+    else:
+      colors[i] = 'B'
+  
+  return ''.join(colors)
+
+def play_game(target_word):
+  # print('Target ' + target_word)
+
+  round = 0
+  remaining_words = get_five_letter_words()
+  while len(remaining_words) > 0 and round < 20:
+    # print()
+    # print(str(len(remaining_words)) + ' remaining words')
+
+    round += 1
+    candidate_word = pick_next_word_to_try(remaining_words)
+    # print('Trying ' + candidate_word)
+    colors = color_word(candidate_word, target_word)
+    # print('Result ' + colors)
+    if colors == 'GGGGG':
+      break
+    remaining_words = filter_words(remaining_words, candidate_word, colors)
+  
+  return round
+
+# Test how effective this algorithm is against all possible words.
+def evaluation_mode():
+  words = get_five_letter_words()
+
+  results = {}
+
+  for target_word in words:
+    rounds = play_game(target_word)
+    results[target_word] = rounds
+    print(target_word, rounds)
+    if rounds == 20:
+      break
+  
+  average = 1.0 * sum(results.values()) / len(results.values())
+  print('Average: ' + str(average))
 
 def main():
-  interactive_mode()
+  if len(sys.argv) == 2 and sys.argv[1] == '-e':
+    evaluation_mode()
+  else:
+    interactive_mode()
 
 if __name__ == "__main__":
     main()
